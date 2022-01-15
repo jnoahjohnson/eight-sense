@@ -47,13 +47,17 @@ type LoaderData = {
   steps: Step[];
 };
 
-export let loader: LoaderFunction = async () => {
+export let loader: LoaderFunction = async ({ request }) => {
+  let userId = await requireUserId(request);
   let steps = await db.step.findMany({
     orderBy: [
       {
         order: "asc",
       },
     ],
+    where: {
+      userId,
+    },
   });
 
   const data: LoaderData = {

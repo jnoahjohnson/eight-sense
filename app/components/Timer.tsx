@@ -1,7 +1,12 @@
 import { Step } from "@prisma/client";
 import useTimer from "~/hooks/useTimer";
 import { getTime } from "~/utils/timerUtils";
-import { PauseIcon, PlayIcon } from "@heroicons/react/outline";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  PauseIcon,
+  PlayIcon,
+} from "@heroicons/react/outline";
 
 export default function Timer({ steps }: { steps: Step[] }) {
   const {
@@ -22,15 +27,23 @@ export default function Timer({ steps }: { steps: Step[] }) {
       <p className="text-8xl md:text-9xl font-bold text-gray-800">
         {outputTime}
       </p>
-      {timerState.isPlaying ? (
-        <button onClick={pause}>
-          <PauseIcon className="w-20 h-20 md:w-24 md:h-24 text-gray-400" />
+      <div className="flex space-x-2 text-gray-400">
+        <button onClick={previousStep}>
+          <ChevronLeftIcon className="w-20 h-20" />
         </button>
-      ) : (
-        <button onClick={play}>
-          <PlayIcon className="w-20 h-20 md:w-24 md:h-24 text-gray-400" />
+        {timerState.isPlaying ? (
+          <button onClick={pause}>
+            <PauseIcon className="w-20 h-20 md:w-24 md:h-24 " />
+          </button>
+        ) : (
+          <button onClick={play}>
+            <PlayIcon className="w-20 h-20 md:w-24 md:h-24 " />
+          </button>
+        )}
+        <button onClick={nextStep}>
+          <ChevronRightIcon className="w-20 h-20" />
         </button>
-      )}
+      </div>
     </div>
   );
 }

@@ -86,7 +86,7 @@ export default function useTimer(steps: Step[]) {
     }
 
     // So this should work because the order starts with 1, but there could be a better way
-    setCurrentStep((prev) => steps[prev.order - 1]);
+    setCurrentStep((prev) => steps[prev.order - 2]);
   };
 
   return {
