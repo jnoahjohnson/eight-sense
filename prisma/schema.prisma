@@ -15,7 +15,8 @@ model Step {
   name        String  
   time        Int
   order       Int
-  user        User[]
+  user        User    @relation(fields: [userId], references: [id])
+  userId      String
   notes       Note[]
 }
 
@@ -25,6 +26,8 @@ model Note {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   stepId      String
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
   step        Step?     @relation(fields: [stepId], references: [id])
 }
 
@@ -34,4 +37,5 @@ model User {
   email       String    @unique @db.VarChar(255)
   passwordHash String
   steps       Step[]
+  notes       Note[]
 }

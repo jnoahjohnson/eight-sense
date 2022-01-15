@@ -1,5 +1,6 @@
 import { Step } from "@prisma/client";
 import { useEffect, useState } from "react";
+import { useNavigate } from "remix";
 import { getTime } from "~/utils/timerUtils";
 
 export type TimerState = {
@@ -22,6 +23,7 @@ export default function useTimer(steps: Step[]) {
     currentTime: 0,
   });
   const [outputTime, setOutputTime] = useState<string>("");
+  const navigate = useNavigate();
 
   // Set new output time
   useEffect(() => {
@@ -59,8 +61,14 @@ export default function useTimer(steps: Step[]) {
   const nextStep = () => {
     if (currentStep === steps[steps.length - 1]) {
       // How should we deal with the final step in the hook?
+      pause();
+      navigate("/");
       return;
     }
+
+    // Play audio
+    const sound = new Audio("/audio/beep.mp3");
+    sound.play();
 
     // So this should work because the order starts with 1, but there could be a better way
     setTimerState((prev) => ({
