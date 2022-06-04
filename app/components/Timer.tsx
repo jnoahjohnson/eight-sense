@@ -33,7 +33,7 @@ export default function Timer({ steps }: { steps: Step[] }) {
         </button>
         {timerState.isPlaying ? (
           <button onClick={pause}>
-            <PauseIcon className="w-20 h-20 md:w-24 md:h-24 " />
+            <PauseIcon className="w-20 h-20 md:w-24 md:h-24" />
           </button>
         ) : (
           <button onClick={play}>
